@@ -2,7 +2,7 @@
 using Moq.AutoMock;
 using NUnit.Framework;
 
-namespace UnitTests.Tests.Example1
+namespace UnitTests.Tests.Example_1
 {
     public class UnitTestDependency
     {

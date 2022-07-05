@@ -6,6 +6,13 @@ namespace UnitTests.Tests.Examples
 {
     public class SetupAndTearDown
     {
+        /*
+         * This is an anti-pattern
+         * Do not use SetUp or TearDown. 
+         *
+         * xunit does not support at all
+         */
+
         private AutoMocker _autoMocker;
         private TestClass _sut;
     

@@ -43,7 +43,6 @@ namespace UnitTests.Tests.Examples
 
             // assert
             actualUsersSaved.Count.Should().Be(3);
-            // How could this be better?
             actualUsersSaved[0].Should().Be(users[0]);
             actualUsersSaved[1].Should().Be(users[1]);
             actualUsersSaved[2].Should().Be(users[2]);
@@ -65,6 +64,7 @@ namespace UnitTests.Tests.Examples
 
             // assert
             actualUsersSaved.Count.Should().Be(3);
+            // How could this be better?
             actualUsersSaved[0].Should().Be(users[0]);
             actualUsersSaved[1].Should().Be(users[1]);
             actualUsersSaved[2].Should().Be(users[2]);

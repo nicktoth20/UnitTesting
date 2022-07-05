@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Moq;
 using Moq.AutoMock;
 using NUnit.Framework;
 
@@ -29,9 +30,24 @@ namespace UnitTests.Tests.Examples
     }
 
     public class UnitTestVsIntegrationTest
-    {
+    {        
+        /*
+         * Unit Test should follow the FIRST principles
+         * Fast
+         * Isolated / Independent (running individually)
+         * Repeatable (different environments; different times of the day)
+         * Self-validating (shouldn't have to check manually if the test passed)
+         * Timely (written before code)
+         */
+
+        /*
+         * Naming conventions:
+         *  Book - [UnitOfWorkName]_[ScenarioUnderTest]_[ExpectedBehavior]
+         *  Example: MethodToTest_ValidMethodCall_ReturnString
+         */
+
         [Test]
-        public void Should_show_an_unit_test_example()
+        public void Should_show_a_unit_test_example()
         {
             // arrange
             var mocker = new AutoMocker();
@@ -46,46 +62,6 @@ namespace UnitTests.Tests.Examples
             // assert
             actualResult.Should().Be("Expected Result");
             mocker.VerifyAll(); // Discuss verify all
-        }
-
-        /*
-         * Naming conventions:
-         *  Book - [UnitOfWorkName]_[ScenarioUnderTest]_[ExpectedBehavior]
-         *  Example: MethodToTest_ValidCall_ReturnString
-         */
-
-        [Test]
-        public void Should_show_an_unit_test_example_with_a_different_setup()
-        {
-            // arrange
-            var mocker = new AutoMocker();
-            // move this line as an example.
-            mocker.Use<TestDependency>(dependency => dependency.ReturnStringValue() == "Expected Result");
-            var sut = mocker.CreateInstance<TestClass>();
-
-            // act
-            var actualResult = sut.MethodToTest();
-
-            // assert
-            actualResult.Should().Be("Expected Result");
-        }
-
-        [Test]
-        public void Should_show_an_unit_test_example_with_another_setup()
-        {
-            // arrange
-            var mocker = new AutoMocker();
-            var sut = mocker.CreateInstance<TestClass>();
-            var unitTestDependency = mocker.GetMock<TestDependency>();
-            unitTestDependency
-                .Setup(dependency => dependency.ReturnStringValue())
-                .Returns("Expected Result");
-            
-            // act
-            var actualResult = sut.MethodToTest();
-
-            // assert
-            actualResult.Should().Be("Expected Result");
         }
     }
 

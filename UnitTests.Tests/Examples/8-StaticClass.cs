@@ -1,87 +1,81 @@
-using System;
+using AutoBogus;
 using FluentAssertions;
 using Moq.AutoMock;
+using Newtonsoft.Json;
 using NUnit.Framework;
+
+// jason's blog post
 
 namespace UnitTests.Tests.Examples
 {
-    public class TimeClock
+    //public interface IConvert
+    //{
+    //    string SerializeObject(User user);
+    //}
+
+    public class Converter
     {
-        public DateTime GetCurrentTime()
+        public string ConvertToString(User user)
         {
-            return DateTime.Now;
+            return JsonConvert.SerializeObject(user);
         }    
     }
     
-    public class Word
+    // replace
+    public class StaticClass
     {
         [Test]
-        public void Should_static_class_issues()
+        public void Should_show_implementation_example()
         {
             // arrange
+            var user = AutoFaker.Generate<User>();
             var mocker = new AutoMocker();
-            var sut = mocker.CreateInstance<TimeClock>();
+            var sut = mocker.CreateInstance<Converter>();
 
             // act
-            var result = sut.GetCurrentTime();
+            var result = sut.ConvertToString(user);
             
             // assert
-            result.Should().Be(DateTime.Now);
+            // implementation
+            result.Should().Be(JsonConvert.SerializeObject(user));
         }
-        
+
         [Test]
-        public void Should_static_class_issues_part_2()
+        public void Should_show_different_example()
         {
             // arrange
+            var user = new User
+            {
+                Active = true,
+                FirstName = "Barry",
+                LastName = "Allen"
+            };
             var mocker = new AutoMocker();
-            var sut = mocker.CreateInstance<TimeClock>();
+            var sut = mocker.CreateInstance<Converter>();
 
             // act
-            var result = sut.GetCurrentTime();
-            
+            var result = sut.ConvertToString(user);
+
             // assert
-            Assert.That(result, Is.EqualTo(DateTime.Now).Within(1).Seconds);
+            result.Should().Be("{\"FirstName\":\"Barry\",\"LastName\":\"Allen\",\"Active\":true}");
         }
-        
-        [Test]
-        public void Should_show_wrapper()
-        {
-            // arrange
-            var mocker = new AutoMocker();
-            var expectedDate = DateTime.Now;
-            mocker.Use<IDateTime>(dt => dt.Now() == expectedDate);
-            var sut = mocker.CreateInstance<TimeClock>();
 
-            // act
-            var result = sut.GetCurrentTime();
-            
-            // assert
-            result.Should().Be(expectedDate);
-        }
-    }
+        // Wrap class
+        //[Test]
+        //public void Should_show_wrapper_example()
+        //{
+        //    // arrange
+        //    var user = AutoFaker.Generate<User>();
+        //    var expectedString = AutoFaker.Generate<string>();
+        //    var mocker = new AutoMocker();
+        //    mocker.Use<IConvert>(convert => convert.SerializeObject(user) == expectedString);
+        //    var sut = mocker.CreateInstance<Converter>();
 
-    public interface IDateTime
-    {
-        DateTime Now();
-    }
+        //    // act
+        //    var result = sut.ConvertToString(user);
 
-    public class MyDateTime : IDateTime
-    {
-        public DateTime Now()
-        {
-            return DateTime.Now;
-        }
+        //    // assert
+        //    result.Should().Be(expectedString);
+        //}
     }
-    //public class TimeClock
-    //{
-    //    private IDateTime _dateTime;
-    //    public TimeClock(IDateTime dateTime)
-    //    {
-    //        _dateTime = dateTime;
-    //    }
-    //    public DateTime GetCurrentTime()
-    //    {
-    //        return _dateTime.Now();
-    //    }
-    //}
 }

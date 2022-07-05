@@ -6,6 +6,16 @@ namespace UnitTests.Tests.Examples
 {
     public class StubVsMock
     {
+        /*
+         * Difference:
+         *  Stubs cannot be verified against whereas mocks can
+         *
+         * You should only have one mock per test and only when it makes sense
+         *  If you method returns a value, test against that value instead of verifying against a mock
+         *
+         * You can have multiple stubs per test
+         */
+
         [Test]
         public void Should_show_a_stub()
         {
@@ -39,7 +49,5 @@ namespace UnitTests.Tests.Examples
             unitTestDependencyMock
                 .Verify(dependency => dependency.ReturnStringValue(), Moq.Times.Once);
         }
-        
-        // Only one mock per test
     }
 }

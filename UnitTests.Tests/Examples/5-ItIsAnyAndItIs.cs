@@ -44,7 +44,7 @@ namespace UnitTests.Tests.Examples
         }
     }
 
-    public class ItIs
+    public class ItIsAnyAndItIs
     {
         [Test]
         public void Should_show_an_example_using_it_isany()
@@ -64,6 +64,22 @@ namespace UnitTests.Tests.Examples
         }
 
         [Test]
+        public void Should_show_the_stronger_example()
+        {
+            // arrange
+            var user = AutoFaker.Generate<User>();
+            var mocker = new AutoMocker();
+            var sut = mocker.CreateInstance<ExampleRepository>();
+
+            // act
+            sut.Save(user);
+
+            // assert
+            mocker.GetMock<IDatabase>()
+                .Verify(repo => repo.Insert(user), Times.Once);
+        }
+
+        [Test]
         public void Should_show_an_example_using_it_isany_in_setup()
         {
             // arrange
@@ -80,25 +96,9 @@ namespace UnitTests.Tests.Examples
             // assert
             actual.Should().Be(user);
         }
-        
-        [Test]
-        public void Should_show_the_ideal_example()
-        {
-            // arrange
-            var user = AutoFaker.Generate<User>();
-            var mocker = new AutoMocker();
-            var sut = mocker.CreateInstance<ExampleRepository>();
-
-            // act
-            sut.Save(user);
-
-            // assert
-            mocker.GetMock<IDatabase>()
-                .Verify(repo => repo.Insert(user), Times.Once);
-        }
 
         [Test]
-        public void Should_show_ideal_example_in_setup()
+        public void Should_show_example_example_in_setup()
         {
             // arrange
             var user = AutoFaker.Generate<User>();
@@ -115,6 +115,9 @@ namespace UnitTests.Tests.Examples
             actual.Should().Be(user);
         }
 
+        /*
+         * Use Id as example
+         */
         [Test]
         public void Should_show_example_when_unable_to_match_all_fields()
         {
@@ -134,7 +137,10 @@ namespace UnitTests.Tests.Examples
                         u.LastName == user.LastName)
                     ), Times.Once);
         }
-        
+
+        /*
+         * Uncomment part 2
+         */
         [Test]
         public void Should_show_an_example_using_rule_for()
         {

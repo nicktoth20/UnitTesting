@@ -1,23 +1,22 @@
 using FluentAssertions;
 using Moq.AutoMock;
 using NUnit.Framework;
-using UnitTests.Tests.Example_1;
 
-namespace UnitTests.Tests.Example_2
+namespace UnitTests.Tests.Examples
 {
-    public class DoNotDo
+    public class SetupAndTearDown
     {
         private AutoMocker _autoMocker;
-        private UnitTestExample _sut;
+        private TestClass _sut;
     
         [SetUp]
         public void SetUp()
         {
             _autoMocker = new AutoMocker();
-            _autoMocker.GetMock<UnitTestDependency>()
+            _autoMocker.GetMock<TestDependency>()
                 .Setup(dependency => dependency.ReturnStringValue())
                 .Returns("Expected Result");
-            _sut = _autoMocker.CreateInstance<UnitTestExample>();
+            _sut = _autoMocker.CreateInstance<TestClass>();
         }
     
         [Test]

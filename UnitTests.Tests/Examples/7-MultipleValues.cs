@@ -1,9 +1,8 @@
 using FluentAssertions;
 using Moq.AutoMock;
 using NUnit.Framework;
-using UnitTests.Tests.Example_4;
 
-namespace UnitTests.Tests.Example_5
+namespace UnitTests.Tests.Examples
 {
     public interface INameGenerator
     {

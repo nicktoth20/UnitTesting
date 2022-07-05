@@ -19,8 +19,4 @@
   <ItemGroup>
     <ProjectReference Include="..\UnitTesting\UnitTesting.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Example 1\" />
-  </ItemGroup>
 </Project>

@@ -3,19 +3,13 @@ using FluentAssertions;
 using Moq.AutoMock;
 using NUnit.Framework;
 
-namespace UnitTests.Tests.Example_6_Static
+namespace UnitTests.Tests.Examples
 {
     public class TimeClock
     {
-        private IDateTime _dateTime;
-        public TimeClock(IDateTime dateTime)
-        {
-            _dateTime = dateTime;
-        }
         public DateTime GetCurrentTime()
         {
-            // return DateTime.Now;
-            return _dateTime.Now();
+            return DateTime.Now;
         }    
     }
     
@@ -78,4 +72,16 @@ namespace UnitTests.Tests.Example_6_Static
             return DateTime.Now;
         }
     }
+    //public class TimeClock
+    //{
+    //    private IDateTime _dateTime;
+    //    public TimeClock(IDateTime dateTime)
+    //    {
+    //        _dateTime = dateTime;
+    //    }
+    //    public DateTime GetCurrentTime()
+    //    {
+    //        return _dateTime.Now();
+    //    }
+    //}
 }

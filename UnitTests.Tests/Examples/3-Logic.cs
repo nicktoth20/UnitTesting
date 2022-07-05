@@ -2,7 +2,7 @@ using AutoBogus;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace UnitTests.Tests.Example_2
+namespace UnitTests.Tests.Examples
 {
     public class ExamCalculator
     {
@@ -12,7 +12,7 @@ namespace UnitTests.Tests.Example_2
         }
     }
     
-    public class DoNotDoPart2
+    public class Logic
     {
         [Test]
         public void Should_show_logic_in_test()

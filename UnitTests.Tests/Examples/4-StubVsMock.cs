@@ -1,9 +1,8 @@
 using FluentAssertions;
 using Moq.AutoMock;
 using NUnit.Framework;
-using UnitTests.Tests.Example_1;
 
-namespace UnitTests.Tests.Example_3
+namespace UnitTests.Tests.Examples
 {
     public class StubVsMock
     {
@@ -12,8 +11,8 @@ namespace UnitTests.Tests.Example_3
         {
             // arrange
             var mocker = new AutoMocker();
-            var sut = mocker.CreateInstance<UnitTestExample>();
-            var unitTestDependencyStub = mocker.GetMock<UnitTestDependency>();
+            var sut = mocker.CreateInstance<TestClass>();
+            var unitTestDependencyStub = mocker.GetMock<TestDependency>();
             unitTestDependencyStub
                 .Setup(dependency => dependency.ReturnStringValue())
                 .Returns("Expected Result");
@@ -30,13 +29,13 @@ namespace UnitTests.Tests.Example_3
         {
             // arrange
             var mocker = new AutoMocker();
-            var sut = mocker.CreateInstance<UnitTestExample>();
+            var sut = mocker.CreateInstance<TestClass>();
 
             // act
             sut.MethodToTest();
 
             // assert
-            var unitTestDependencyMock = mocker.GetMock<UnitTestDependency>();
+            var unitTestDependencyMock = mocker.GetMock<TestDependency>();
             unitTestDependencyMock
                 .Verify(dependency => dependency.ReturnStringValue(), Moq.Times.Once);
         }

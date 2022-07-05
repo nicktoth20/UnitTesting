@@ -5,7 +5,7 @@ using Moq;
 using Moq.AutoMock;
 using NUnit.Framework;
 
-namespace UnitTests.Tests.Example_4
+namespace UnitTests.Tests.Examples
 {
     public class ExampleRepositoryPart2
     {
@@ -43,6 +43,7 @@ namespace UnitTests.Tests.Example_4
 
             // assert
             actualUsersSaved.Count.Should().Be(3);
+            // How could this be better?
             actualUsersSaved[0].Should().Be(users[0]);
             actualUsersSaved[1].Should().Be(users[1]);
             actualUsersSaved[2].Should().Be(users[2]);

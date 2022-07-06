@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Moq;
 using Moq.AutoMock;
 using NUnit.Framework;
 
@@ -65,19 +64,19 @@ namespace UnitTests.Tests.Examples
         }
     }
 
-    public class IntegrationTest
-    {
-        [Test]
-        public void Should_be_an_example_of_an_integration_test()
-        {
-            // arrange
-            var sut = new TestClass(new TestDependency());
+    //public class IntegrationTest
+    //{
+    //    [Test]
+    //    public void Should_be_an_example_of_an_integration_test()
+    //    {
+    //        // arrange
+    //        var sut = new TestClass(new TestDependency());
             
-            // act
-            var actualResult = sut.MethodToTest();
+    //        // act
+    //        var actualResult = sut.MethodToTest();
             
-            // assert
-            actualResult.Should().Be("Result from dependency");
-        }
-    }
+    //        // assert
+    //        actualResult.Should().Be("Result from dependency");
+    //    }
+    //}
 }

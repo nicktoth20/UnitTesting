@@ -7,34 +7,41 @@ using NUnit.Framework;
 
 namespace UnitTests.Tests.Examples
 {
-    public class ExampleRepositoryPart2
-    {
-        private readonly IDatabase _database;
-        
-        public ExampleRepositoryPart2(IDatabase database)
-        {
-            _database = database;
-        }
-        public void SaveAll(IEnumerable<User> users)
-        {
-            foreach (var user in users)
-            {
-                _database.Insert(user);
-            }
-        }
-    }
 
     public class CaptureIn
     {
+        public interface IBetterDatabase
+        {
+            void Insert(User user);
+        }
+
+        public class BetterExampleRepository
+        {
+            private readonly IBetterDatabase _database;
+
+            public BetterExampleRepository(IBetterDatabase database)
+            {
+                _database = database;
+            }
+
+            public void SaveAll(IEnumerable<User> users)
+            {
+                foreach (var user in users)
+                {
+                    _database.Insert(user);
+                }
+            }
+        }
+
         [Test]
         public void Should_show_an_example_using_callback()
         {
             // arrange
             var users = AutoFaker.Generate<User>(3);
             var mocker = new AutoMocker();
-            var sut = mocker.CreateInstance<ExampleRepositoryPart2>();
+            var sut = mocker.CreateInstance<BetterExampleRepository>();
             var actualUsersSaved = new List<User>();
-            mocker.GetMock<IDatabase>()
+            mocker.GetMock<IBetterDatabase>()
                 .Setup(database => database.Insert(It.IsAny<User>()))
                 .Callback((User userBeingSaved) => actualUsersSaved.Add(userBeingSaved));
 
@@ -54,9 +61,9 @@ namespace UnitTests.Tests.Examples
             // arrange
             var users = AutoFaker.Generate<User>(3);
             var mocker = new AutoMocker();
-            var sut = mocker.CreateInstance<ExampleRepositoryPart2>();
+            var sut = mocker.CreateInstance<BetterExampleRepository>();
             var actualUsersSaved = new List<User>();
-            mocker.GetMock<IDatabase>()
+            mocker.GetMock<IBetterDatabase>()
                 .Setup(database => database.Insert(Capture.In(actualUsersSaved)));
 
             // act

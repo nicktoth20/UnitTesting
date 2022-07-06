@@ -62,6 +62,27 @@ namespace UnitTests.Tests.Examples
         {
             // arrange
             var mocker = new AutoMocker();
+            SetupTestDependencyToReturnString(mocker, "Expected Result");
+            var sut = mocker.CreateInstance<TestClass>();
+
+            // act
+            var actualResult = sut.MethodToTest();
+
+            // assert
+            actualResult.Should().Be("Expected Result");
+        }
+
+        public void SetupTestDependencyToReturnString(AutoMocker mocker, string valueToReturn)
+        {
+            mocker.Setup<TestDependency, string>(dependency => dependency.ReturnStringValue())
+                .Returns(valueToReturn);
+        }
+
+        [Test]
+        public void Should_show_more_readable_example_take_number_2()
+        {
+            // arrange
+            var mocker = new AutoMocker();
             TestDependencyMock
                 .Setup(mocker.GetMock<TestDependency>())
                 .ReturnsStringValue("Expected Result");
